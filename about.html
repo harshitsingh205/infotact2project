@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Job Listing Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            color: #007bff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #f0f0f0;
+        }
+        .about-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+        ul {
+            padding-left: 20px;
+            color: #555;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="back-button" onclick="goBack()">Back</button>
+        <h1>About Us</h1>
+    </header>
+    <section class="about-container">
+        <h2>Welcome to Our Job Listing Portal</h2>
+        <p>Our Job Listing Portal is a dynamic web application designed to connect job seekers with employers efficiently. Our platform provides an intuitive interface where users can search for job openings across various industries.</p>
+        
+        <h2>Our Mission</h2>
+        <p>We aim to make job searching and hiring seamless by offering advanced filtering options, real-time notifications, and secure authentication for both employers and job seekers.</p>
+        
+        <h2>Why Choose Us?</h2>
+        <ul>
+            <li>Easy-to-use and intuitive interface.</li>
+            <li>Advanced filters for precise job search.</li>
+            <li>Secure authentication for data privacy.</li>
+            <li>Real-time notifications and updates.</li>
+            <li>Comprehensive dashboard to manage job postings and applications.</li>
+        </ul>
+        
+        <p>Join us today and take the next step in your career journey!</p>
+    </section>
+    <div class="footer">
+        <p>Created by <strong>Harshit Singh</strong> and <strong>Pallavi Chaturvedi</strong></p>
+    </div>
+    <script>
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

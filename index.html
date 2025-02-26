@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Listing Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007BFF;
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+      color: #f4f4f4;
+    }
+
+    .navbar .login-btn {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar .login-btn:hover {
+      background-color: #004080;
+    }
+
+    .navbar .toggle-btn {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #007BFF, #0056b3);
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-form {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-form select {
+      padding: 0.75rem;
+      width: 250px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .search-form button {
+      padding: 0.75rem 1.5rem;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-form button:hover {
+      background-color: #004080;
+    }
+
+    /* Job Listings */
+    .job-listings {
+      padding: 2rem;
+      text-align: center;
+      background-color: white;
+    }
+
+    .job-listings h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .jobs-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .job-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 1.5rem;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .job-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-card p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    /* Job Details Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 400px;
+      text-align: center;
+      position: relative;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #apply-now {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    #apply-now:hover {
+      background-color: #0056b3;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #007BFF;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #333;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem;
+        animation: slideDown 0.3s ease;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .navbar .nav-links.active {
+        display: flex;
+      }
+
+      .navbar .toggle-btn {
+        display: block;
+      }
+
+      .search-form {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search-form select {
+        width: 80%;
+      }
+
+      .modal-content {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">JobPortal</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="job.html">Jobs</a></li>
+      <li><a href="emp.html">Employers</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <button class="login-btn">Login</button>
+    <div class="toggle-btn">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+  <script>
+    document.querySelector(".login-btn").addEventListener("click", function() {
+        window.location.href = "login.html";
+    });
+    </script>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Find Your Dream Job</h1>
+      <p>Connecting talented job seekers with top employers.</p>
+      <form class="search-form">
+        <select id="job-keyword">
+          <option value="">Select Job Keyword</option>
+          <option value="Software Engineer">Software Engineer</option>
+          <option value="Marketing Manager">Marketing Manager</option>
+          <option value="Data Analyst">Data Analyst</option>
+          <option value="Product Manager">Product Manager</option>
+          <option value="UI/UX Designer">UI/UX Designer</option>
+        </select>
+        <select id="location">
+          <option value="">Select Location</option>
+          <option value="Remote">Remote</option>
+          <option value="New York">New York</option>
+          <option value="San Francisco">San Francisco</option>
+          <option value="Chicago">Chicago</option>
+          <option value="Los Angeles">Los Angeles</option>
+        </select>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section class="job-listings" id="jobs">
+    <h2>Latest Job Openings</h2>
+    <div class="jobs-container" id="jobs-container">
+      <!-- Job cards will be dynamically inserted here -->
+    </div>
+  </section>
+
+  <!-- Job Details Modal -->
+  <div class="modal" id="job-modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h3 id="modal-title"></h3>
+      <p id="modal-company"></p>
+      <p id="modal-location"></p>
+      <button id="apply-now">Apply Now</button>
+    </div>
+  </div>
+
+  <footer style="background-color: #2c3e50; color: #ecf0f1; padding: 40px 20px; font-family: 'Arial', sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px;">
+      <!-- About Section -->
+      <div style="flex: 1; min-width: 200px;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #3498db;">JobPortal</h3>
+        <p style="font-size: 0.9rem; line-height: 1.6;">
+          JobPortal is your gateway to finding the perfect job. We connect talented job seekers with top employers worldwide.
+        </p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div style="flex: 1; min-width: 200px;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #3498db;">Quick Links</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 10px;"><a href="index.html" style="color: #ecf0f1; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;">Home</a></li>
+          <li style="margin-bottom: 10px;"><a href="job.html" style="color: #ecf0f1; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;">Jobs</a></li>
+          <li style="margin-bottom: 10px;"><a href="emp.html" style="color: #ecf0f1; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;">Employers</a></li>
+          <li style="margin-bottom: 10px;"><a href="about.html" style="color: #ecf0f1; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;">About</a></li>
+        </ul>
+      </div>
+  
+      <!-- Contact Info -->
+      <div style="flex: 1; min-width: 200px;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #3498db;">Contact Us</h3>
+        <p style="font-size: 0.9rem; line-height: 1.6;">
+          <i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> India bangolore
+        </p>
+        <p style="font-size: 0.9rem; line-height: 1.6;">
+          <i class="fas fa-phone" style="margin-right: 10px;"></i> +123 456 7890
+        </p>
+        <p style="font-size: 0.9rem; line-height: 1.6;">
+          <i class="fas fa-envelope" style="margin-right: 10px;"></i> infotact.in
+        </p>
+      </div>
+  
+      <!-- Social Media -->
+      <div style="flex: 1; min-width: 200px;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #3498db;">Follow Us</h3>
+        <div style="display: flex; gap: 15px;">
+          <a href="#" style="color: #ecf0f1; text-decoration: none; font-size: 1.2rem; transition: color 0.3s ease;"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" style="color: #ecf0f1; text-decoration: none; font-size: 1.2rem; transition: color 0.3s ease;"><i class="fab fa-twitter"></i></a>
+          <a href="#" style="color: #ecf0f1; text-decoration: none; font-size: 1.2rem; transition: color 0.3s ease;"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" style="color: #ecf0f1; text-decoration: none; font-size: 1.2rem; transition: color 0.3s ease;"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Copyright -->
+    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #34495e;">
+      <p style="font-size: 0.9rem; color: #bdc3c7;">
+        &copy; 2023 JobPortal. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <script>
+   const jobs = [
+  { title: "Software Engineer", company: "Tech Corp", location: "Remote" },
+  { title: "Marketing Manager", company: "Creative Agency", location: "New York" },
+  { title: "Data Analyst", company: "Data Insights", location: "San Francisco" },
+  { title: "Product Manager", company: "Startup Inc.", location: "Los Angeles" },
+  { title: "UI/UX Designer", company: "Design Studio", location: "Chicago" },
+  { title: "Cyber Security Analyst", company: "Secure Tech", location: "Houston" },
+  { title: "DevOps Engineer", company: "Cloud Solutions", location: "Seattle" },
+  { title: "HR Specialist", company: "People First", location: "Boston" },
+  { title: "Financial Analyst", company: "Wealthy Finance", location: "New York" },
+  { title: "Business Consultant", company: "Strategy Hub", location: "San Francisco" }
+];
+
+// Toggle Navbar for Mobile
+const toggleBtn = document.querySelector(".toggle-btn");
+const navLinks = document.querySelector(".nav-links");
+
+toggleBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+
+
+
+// Search Functionality
+const searchForm = document.querySelector(".search-form");
+const jobsContainer = document.getElementById("jobs-container");
+
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const jobKeyword = document.getElementById("job-keyword").value.toLowerCase();
+  const location = document.getElementById("location").value.toLowerCase();
+
+  const filteredJobs = jobs.filter(
+    (job) =>
+      job.title.toLowerCase().includes(jobKeyword) &&
+      job.location.toLowerCase().includes(location)
+  );
+
+  displayJobs(filteredJobs);
+});
+
+// Display Jobs
+function displayJobs(jobs) {
+  jobsContainer.innerHTML = jobs
+    .map(
+      (job) => `
+      <div class="job-card" data-title="${job.title}" data-company="${job.company}" data-location="${job.location}">
+        <h3>${job.title}</h3>
+        <p>Company: ${job.company}</p>
+        <p>Location: ${job.location}</p>
+      </div>
+    `
+    )
+    .join("");
+
+  // Add click event to job cards
+  const jobCards = document.querySelectorAll(".job-card");
+  jobCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const title = card.getAttribute("data-title");
+      const company = card.getAttribute("data-company");
+      const location = card.getAttribute("data-location");
+      openModal(title, company, location);
+    });
+  });
+}
+
+// Job Details Modal
+const modal = document.getElementById("job-modal");
+const closeBtn = document.querySelector(".close-btn");
+const applyNowButton = document.getElementById("apply-now");
+
+function openModal(title, company, location) {
+  document.getElementById("modal-title").textContent = title;
+  document.getElementById("modal-company").textContent = `Company: ${company}`;
+  document.getElementById("modal-location").textContent = `Location: ${location}`;
+  modal.style.display = "flex";
+
+  // Set the job title as a data attribute on the Apply Now button
+  applyNowButton.setAttribute("data-title", title);
+}
+
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// Apply Now Button Functionality
+applyNowButton.addEventListener("click", () => {
+  const jobTitle = applyNowButton.getAttribute("data-title");
+  window.location.href = `apply.html?job=${encodeURIComponent(jobTitle)}`;
+});
+
+// Display all jobs on page load
+displayJobs(jobs);
+  </script>
+</body>
+</html>

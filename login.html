@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup - Job Listing Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 350px;
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .toggle-link {
+            margin-top: 15px;
+            color: #007bff;
+            cursor: pointer;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Job Listing Portal</div>
+    <div class="container" id="authContainer">
+        <h2 id="formTitle">Login</h2>
+        <div id="signupFields" style="display: none;">
+            <input type="text" id="name" placeholder="Full Name">
+        </div>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="authenticate()" id="authButton">Login</button>
+        <span class="toggle-link" onclick="toggleForm()">Don't have an account? Sign Up</span>
+    </div>
+    <script>
+        let isSignup = false;
+
+        function toggleForm() {
+            isSignup = !isSignup;
+            document.getElementById('formTitle').textContent = isSignup ? 'Sign Up' : 'Login';
+            document.getElementById('signupFields').style.display = isSignup ? 'block' : 'none';
+            document.getElementById('authButton').textContent = isSignup ? 'Sign Up' : 'Login';
+            document.querySelector('.toggle-link').textContent = isSignup ? 'Already have an account? Login' : "Don't have an account? Sign Up";
+        }
+
+        function authenticate() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

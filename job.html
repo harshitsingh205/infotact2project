@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listing Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-bar input, .search-bar select, .search-bar button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .job-listings {
+            padding: 20px;
+        }
+        .job {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .job button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+
+    </style>
+</head>
+<body>
+    <header>
+        <button class="back-button" onclick="goBack()">Back</button>
+        <h1>Our Job Listing Portal</h1>
+    </header>
+    <section class="search-bar">
+        <input type="text" id="jobSearch" placeholder="Search for jobs...">
+        <select id="jobType">
+            <option value="all">All Types</option>
+            <option value="full-time">Full-Time</option>
+            <option value="part-time">Part-Time</option>
+        </select>
+        <select id="location">
+            <option value="all">All Locations</option>
+            <option value="new-york">New York</option>
+            <option value="san-francisco">San Francisco</option>
+        </select>
+        <button onclick="filterJobs()">Search</button>
+    </section>
+    <section class="job-listings" id="jobListings">
+        <!-- Job listings will be dynamically inserted here -->
+    </section>
+    <script>
+        const jobs = [
+            { title: "Software Engineer", company: "Tech Corp", location: "Remote" },
+            { title: "Marketing Manager", company: "Creative Agency", location: "New York" },
+            { title: "Data Analyst", company: "Data Insights", location: "San Francisco" },
+            { title: "Product Manager", company: "Startup Inc.", location: "Los Angeles" },
+            { title: "UI/UX Designer", company: "Design Studio", location: "Chicago" },
+            { title: "Cyber Security Analyst", company: "Secure Tech", location: "Houston" },
+            { title: "DevOps Engineer", company: "Cloud Solutions", location: "Seattle" },
+            { title: "HR Specialist", company: "People First", location: "Boston" },
+            { title: "Financial Analyst", company: "Wealthy Finance", location: "New York" },
+            { title: "Business Consultant", company: "Strategy Hub", location: "San Francisco" }
+        ];
+
+        function displayJobs(filteredJobs) {
+            const jobListings = document.getElementById("jobListings");
+            jobListings.innerHTML = "";
+            filteredJobs.forEach(job => {
+                const jobElement = document.createElement("div");
+                jobElement.classList.add("job");
+                jobElement.innerHTML = `
+                    <h3>${job.title}</h3>
+                    <p>Company: ${job.company}</p>
+                    <p>Location: ${job.location}</p>
+                    <button onclick="applyJob()">Apply Now</button>
+                `;
+                jobListings.appendChild(jobElement);
+            });
+        }
+
+        function filterJobs() {
+            const searchValue = document.getElementById("jobSearch").value.toLowerCase();
+            const jobType = document.getElementById("jobType").value;
+            const location = document.getElementById("location").value;
+            
+            const filteredJobs = jobs.filter(job => {
+                return (
+                    (location === "all" || job.location.toLowerCase() === location.toLowerCase()) &&
+                    job.title.toLowerCase().includes(searchValue)
+                );
+            });
+            
+            displayJobs(filteredJobs);
+        }
+
+        function applyJob() {
+            window.location.href = "apply.html";
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            displayJobs(jobs);
+        });
+    </script>
+</body>
+</html>
